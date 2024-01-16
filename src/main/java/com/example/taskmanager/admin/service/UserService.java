@@ -1,5 +1,6 @@
 package com.example.taskmanager.admin.service;
 
+import com.example.taskmanager.admin.dto.response.UserResponseDTO;
 import com.example.taskmanager.application.component.CurrentUser;
 import com.example.taskmanager.application.component.MD5Encoder;
 import com.example.taskmanager.application.domain.Role;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Supplier;
 
 @Service
@@ -61,6 +63,20 @@ public class UserService {
     }
 
 
+    public UserResponseDTO getCurrentUser() {
+
+        User user = userRepository.findById(currentUser.getId()).orElseThrow(userNotFound());
+
+        List<Role> roles = user.getRoles();
+        String roleName = roles.stream().filter(this::hasBasicRole).map(Role::getRoleName)
+                .findFirst().orElse("Unknown");
+
+        UserResponseDTO userResponseDTO = new UserResponseDTO(user.getId(), user.getEmail(), user.getFirstName(),
+                user.getLastName(), user.getProfileName(), user.getPassword(), roleName);
+
+        return userResponseDTO;
+    }
+
 
 
 
@@ -80,4 +96,6 @@ public class UserService {
     private Supplier<? extends RuntimeException> userNotFound() {
         return () -> new RuntimeException("User not found");
     }
+
+
 }

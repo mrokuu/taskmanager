@@ -1,6 +1,7 @@
 package com.example.taskmanager.admin.controller;
 
 import com.example.taskmanager.admin.dto.request.UserRequestDTO;
+import com.example.taskmanager.admin.dto.response.UserResponseDTO;
 import com.example.taskmanager.admin.service.UserService;
 import com.example.taskmanager.admin.validator.PasswordChangeValid;
 import com.example.taskmanager.admin.validator.PasswordCreateValid;
@@ -10,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,5 +35,12 @@ public class UserController {
 
         userService.updateUser(userRequestDTO);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/current")
+    public ResponseEntity<UserResponseDTO> getCurrentUser() {
+
+        UserResponseDTO userResponseDTO = userService.getCurrentUser();
+        return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
     }
 }
