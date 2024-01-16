@@ -15,7 +15,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -77,7 +79,19 @@ public class UserService {
         return userResponseDTO;
     }
 
+    public void updateCurrentUserRoleName(String roleName) {
 
+        User user = userRepository.findById(currentUser.getId()).orElseThrow(userNotFound());
+        Role role = roleRepository.findByRoleName(roleName);
+
+        List<Role> roles = user.getRoles();
+        Set<Role> rolesToRemove = roles.stream().filter(this::hasBasicRole).collect(Collectors.toSet());
+
+        user.getRoles().removeAll(rolesToRemove);
+        user.getRoles().add(role);
+
+        userRepository.save(user);
+    }
 
 
     private void validatePasswordEquality(UserRequestDTO userRequestDTO, User user) throws UserInputException {
@@ -96,6 +110,7 @@ public class UserService {
     private Supplier<? extends RuntimeException> userNotFound() {
         return () -> new RuntimeException("User not found");
     }
+
 
 
 }
