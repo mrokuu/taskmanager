@@ -1,4 +1,4 @@
-package com.example.application.domain;
+package com.example.taskmanager.application.domain;
 
 import jakarta.persistence.*;
 import org.springframework.data.domain.Persistable;

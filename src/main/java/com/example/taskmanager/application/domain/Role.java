@@ -1,4 +1,4 @@
-package com.example.application.domain;
+package com.example.taskmanager.application.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

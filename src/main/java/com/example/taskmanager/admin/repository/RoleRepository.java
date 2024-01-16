@@ -1,6 +1,6 @@
 package com.example.taskmanager.admin.repository;
 
-import com.example.application.domain.Role;
+import com.example.taskmanager.application.domain.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

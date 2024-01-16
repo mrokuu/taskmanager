@@ -1,4 +1,4 @@
-package com.example.application.domain;
+package com.example.taskmanager.application.domain;
 
 public enum RoleEnum {
 
