@@ -1,6 +1,7 @@
 package com.example.taskmanager.application.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.util.*;
 

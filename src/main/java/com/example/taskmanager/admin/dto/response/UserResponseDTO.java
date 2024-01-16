@@ -1,6 +1,8 @@
 package com.example.taskmanager.admin.dto.response;
 
+import lombok.Builder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
 
 public class UserResponseDTO {
 

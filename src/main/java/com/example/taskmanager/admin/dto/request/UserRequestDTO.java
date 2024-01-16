@@ -2,6 +2,7 @@ package com.example.taskmanager.admin.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 
