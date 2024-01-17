@@ -1,7 +1,11 @@
 package com.example.taskmanager.application.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
@@ -31,7 +35,7 @@ public class User extends AbstractEntity<Long> {
     protected List<Role> roles = new ArrayList<Role>();
 
     @ManyToMany(cascade = { CascadeType.MERGE })
-    @JoinTable(name = "appa_items_users", joinColumns = { @JoinColumn(name = "users_id") }, inverseJoinColumns = {
+    @JoinTable(name = "tasks_users", joinColumns = { @JoinColumn(name = "users_id") }, inverseJoinColumns = {
             @JoinColumn(name = "items_id") })
     private Set<Task> appaItems = new HashSet<Task>();
 
