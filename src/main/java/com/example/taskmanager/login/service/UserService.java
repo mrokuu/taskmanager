@@ -3,6 +3,7 @@ package com.example.taskmanager.login.service;
 import com.example.taskmanager.application.component.MD5Encoder;
 import com.example.taskmanager.application.domain.User;
 import com.example.taskmanager.login.component.email.EmailSender;
+import com.example.taskmanager.login.dto.request.ResetPasswordRequestDTO;
 import com.example.taskmanager.login.dto.request.TokenRequestDTO;
 import com.example.taskmanager.login.dto.response.EmailResponseDTO;
 import com.example.taskmanager.login.repository.UserRepository;
@@ -37,5 +38,10 @@ public class UserService {
     @Transactional
     public void save(User user) {
         userRepository.save(user);
+    }
+
+    public void validateToken(ResetPasswordRequestDTO resetPasswordRequestDTO) {
+        User user = userRepository.findByToken(resetPasswordRequestDTO.getToken());
+        validate(user, "Token is invalid or expired");
     }
 }
