@@ -4,9 +4,12 @@ import com.example.taskmanager.application.domain.User;
 import com.example.taskmanager.login.component.email.config.EmailProperties;
 import com.example.taskmanager.login.component.email.config.EmailResetPasswordProperties;
 import com.example.taskmanager.login.dto.response.EmailResponseDTO;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
@@ -22,20 +25,12 @@ public class EmailSender {
     private EmailProperties emailProperties;
     private EmailResetPasswordProperties emailResetPasswordProperties;
 
-
-
-
-    public EmailResponseDTO sendResetPasswordEmail(User user) {
-//        String emailBody = MessageFormat.format(emailResetPasswordProperties.getBody(), user.getToken());
-//        String emailSubject = emailResetPasswordProperties.getSubject();
-
-//        sendMail(emailProperties.getFrom(), user.getEmail(), emailSubject, emailBody);
-
-        EmailResponseDTO emailDto = new EmailResponseDTO("sent");
-
-        return emailDto;
+    public EmailSender(JavaMailSender mailSender, EmailProperties emailProperties,
+                       EmailResetPasswordProperties emailResetPasswordProperties) {
+        this.mailSender = mailSender;
+        this.emailProperties = emailProperties;
+        this.emailResetPasswordProperties = emailResetPasswordProperties;
     }
-
 
     public void sendMail(String from, String to, String subject, String body) {
 
@@ -52,5 +47,30 @@ public class EmailSender {
             LOG.info("[METRICS] --------------------> sendMail, time: {} {} ",
                     Duration.between(startTime, endTime).getSeconds(), "sec.");
         }
+    }
+
+    private MimeMessage message(String from, String to, String subject, String body) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        message.setSubject(subject);
+        message.setContent(body, "text/plain");
+
+        MimeMessageHelper helper = new MimeMessageHelper(message, false);
+        helper.setFrom(from);
+        helper.setTo(to);
+        helper.setSubject(subject);
+
+        return message;
+    }
+
+    public EmailResponseDTO sendResetPasswordEmail(User user) {
+
+        String emailBody = MessageFormat.format(emailResetPasswordProperties.getBody(), user.getToken());
+        String emailSubject = emailResetPasswordProperties.getSubject();
+
+        sendMail(emailProperties.getFrom(), user.getEmail(), emailSubject, emailBody);
+
+        EmailResponseDTO emailDto = new EmailResponseDTO("sent");
+
+        return emailDto;
     }
 }
