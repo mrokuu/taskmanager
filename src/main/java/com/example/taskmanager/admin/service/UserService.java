@@ -27,10 +27,8 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final CurrentUser currentUser;
 
+
     private final MD5Encoder md5Encoder;
-
-
-
 
 
     public void saveUser(UserRequestDTO userRequestDTO) {

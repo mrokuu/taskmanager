@@ -11,21 +11,21 @@ public class PasswordChangeValidator implements ConstraintValidator<PasswordChan
     }
 
     @Override
-    public boolean isValid(UserRequestDTO appaUserRequestDTO, ConstraintValidatorContext ctx) {
+    public boolean isValid(UserRequestDTO userRequestDTO, ConstraintValidatorContext ctx) {
 
-        if (!appaUserRequestDTO.isPasswordChangeDetected()) {
+        if (!userRequestDTO.isPasswordChangeDetected()) {
             return true;
         }
 
         ctx.disableDefaultConstraintViolation();
 
-        if (appaUserRequestDTO.getOldPassword() == null) {
+        if (userRequestDTO.getOldPassword() == null) {
             ctx.buildConstraintViolationWithTemplate("Old password is empty").addConstraintViolation();
             return false;
-        } else if (!appaUserRequestDTO.getNewPassword().equals(appaUserRequestDTO.getNewRepeatedPassword())) {
+        } else if (!userRequestDTO.getNewPassword().equals(userRequestDTO.getNewRepeatedPassword())) {
             ctx.buildConstraintViolationWithTemplate("Passwords don't match").addConstraintViolation();
             return false;
-        } else if (!isValidSize(appaUserRequestDTO)) {
+        } else if (!isValidSize(userRequestDTO)) {
             ctx.buildConstraintViolationWithTemplate("Password has incorrect length")
                     .addConstraintViolation();
             return false;

@@ -2,6 +2,7 @@ package com.example.taskmanager.admin.service;
 
 
 import com.example.taskmanager.admin.dto.request.UserRequestDTO;
+import com.example.taskmanager.admin.dto.response.UserResponseDTO;
 import com.example.taskmanager.admin.repository.RoleRepository;
 import com.example.taskmanager.admin.repository.UserRepository;
 import com.example.taskmanager.application.component.CurrentUser;
@@ -9,15 +10,22 @@ import com.example.taskmanager.application.component.MD5Encoder;
 import com.example.taskmanager.application.domain.Role;
 import com.example.taskmanager.application.domain.RoleEnum;
 import com.example.taskmanager.application.domain.User;
+import com.example.taskmanager.application.exception.UserInputException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import javax.management.relation.RoleNotFoundException;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.Collections;
+import java.util.Optional;
+
+import static com.jayway.jsonpath.internal.path.PathCompiler.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -87,4 +95,11 @@ class UserServiceTest {
         // Act & Assert
         assertThrows(RuntimeException.class, () -> userService.saveUser(userRequestDTO));
     }
+
+
+
+
+
+
+
 }

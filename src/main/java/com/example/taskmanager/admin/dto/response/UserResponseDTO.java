@@ -1,9 +1,12 @@
 package com.example.taskmanager.admin.dto.response;
 
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-
+@Getter
+@Setter
 public class UserResponseDTO {
 
     private final Long id;
@@ -25,31 +28,7 @@ public class UserResponseDTO {
         this.roleName = roleName;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public String getEmail() {
-        return email;
-    }
-
-    // Getters which seems to be unused are being used by fastermxl
-    // library to read values and convert them to the http request.
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getProfileName() {
-        return profileName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
 
     @Override
     public String toString() {
