@@ -1,5 +1,6 @@
 package com.example.taskmanager.login.controller;
 
+import com.example.taskmanager.login.dto.request.NewPasswordRequestDTO;
 import com.example.taskmanager.login.dto.request.ResetPasswordRequestDTO;
 import com.example.taskmanager.login.dto.request.TokenRequestDTO;
 import com.example.taskmanager.login.dto.response.EmailResponseDTO;
@@ -39,8 +40,16 @@ public class AuthController {
         } catch (Exception tokenExpiredException) {
             response.setHeader("Location", "http://localhost:4200/tokenExpired");
             response.setStatus(HttpStatus.FOUND.value());
-            // Found means that we expect such exception, and we have solution for that.
-            // We invoke tokenExpired address in case of such situation.
+        }
+    }
+
+    @PostMapping("/password/new")
+    public ResponseEntity<Void> saveNewPassword(@Valid @RequestBody NewPasswordRequestDTO newPasswordRequestDTO) {
+        try {
+            userService.saveNewPassword(newPasswordRequestDTO);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception tokenExpiredException) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
 }
