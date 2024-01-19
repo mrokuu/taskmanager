@@ -73,7 +73,7 @@ public class TaskService {
     public void deleteItem(Long id) {
         User user = userRepository.findById(currentUser.getId()).orElseThrow(userNotFound());
         Task item = taskRepository.findByCreatorAndFakeId(user, id);
-        item.getAppaItemsUsers().add(user);
+        item.getTasksUsers().add(user);
         taskRepository.delete(item);
     }
 

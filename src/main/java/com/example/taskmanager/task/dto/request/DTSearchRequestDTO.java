@@ -1,5 +1,8 @@
 package com.example.taskmanager.task.dto.request;
 
+import com.example.taskmanager.task.component.database.DTOrder;
+import com.example.taskmanager.task.component.database.DTSearchValue;
+
 public class DTSearchRequestDTO {
 
     private int page;
