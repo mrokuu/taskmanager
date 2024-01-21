@@ -1,22 +1,21 @@
-package com.example.taskmanager.task.dto.response;
+package com.example.taskmanager.createTask.dto.response;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.time.Instant;
 
-public class TaskResponseDTO {
+public class TaskPreviewResponseDTO {
 
     private final Long id;
+    private final Long fakeId;
     private final String name;
-    private final String description;
     private final Instant dateTimeFrom;
     private final Instant dateTimeTo;
 
-    public TaskResponseDTO(Long id, String name, String description, Instant dateTimeFrom,
-                           Instant dateTimeTo) {
+    public TaskPreviewResponseDTO(Long id, Long fakeId, String name, Instant dateTimeFrom, Instant dateTimeTo) {
         this.id = id;
+        this.fakeId = fakeId;
         this.name = name;
-        this.description = description;
         this.dateTimeFrom = dateTimeFrom;
         this.dateTimeTo = dateTimeTo;
     }
@@ -25,12 +24,12 @@ public class TaskResponseDTO {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public Long getFakeId() {
+        return fakeId;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
     public Instant getDateTimeFrom() {
@@ -44,7 +43,6 @@ public class TaskResponseDTO {
     @Override
     public String toString() {
         return new ToStringBuilder(this).append("id", id).append("name", name)
-                .append("description", description).append("dateTimeFrom", dateTimeFrom)
-                .append("dateTimeTo", dateTimeTo).toString();
+                .append("dateTimeFrom", dateTimeFrom).append("dateTimeTo", dateTimeTo).toString();
     }
 }
